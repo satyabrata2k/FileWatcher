@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using FileWatcherService.Wrappers;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -9,12 +10,12 @@ namespace FileWatcherService
 {
     class Program
     {
-        static void Main(string[] args)
+        static void Main()
         {
-            var host = AppStartup();
+            var host = Startup();
 
-            var fileWatcher = ActivatorUtilities.CreateInstance<FileWatcher>(host.Services);
-            fileWatcher.Start(new FileSystemWatcher());
+            var fileWatcher = ActivatorUtilities.CreateInstance<SimpleFileWatcher>(host.Services);
+            fileWatcher.Start();
             
             Console.ReadLine();
         }
@@ -26,7 +27,7 @@ namespace FileWatcherService
                 .AddEnvironmentVariables();
         }
 
-        private static IHost AppStartup()
+        private static IHost Startup()
         {
             var builder = new ConfigurationBuilder();
             ConfigSetup(builder);
@@ -39,8 +40,11 @@ namespace FileWatcherService
 
             var host = Host.CreateDefaultBuilder()
                 .ConfigureServices((context, services) => {
-                    services.AddTransient<IFileWatcher, FileWatcher>();
-                    services.AddTransient<IFileMover, FileMover>();
+                    services.AddTransient<IFileBag, FileBag>();
+                    services.AddTransient<ITimer, TimeWrapper>();
+                    services.Add(new ServiceDescriptor(typeof(IWatcherWrapper), new WatcherWrapper(new FileSystemWatcher())));
+                    services.AddTransient<IFileWatcher, SimpleFileWatcher>();
+                    services.AddTransient<IWorker, Worker>();
                 })
                 .UseSerilog()
                 .Build();

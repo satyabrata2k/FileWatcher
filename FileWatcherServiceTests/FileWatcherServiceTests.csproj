@@ -17,4 +17,10 @@
     <ProjectReference Include="..\FileWatcherService\FileWatcherService.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="TestData\Dummy_Source.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

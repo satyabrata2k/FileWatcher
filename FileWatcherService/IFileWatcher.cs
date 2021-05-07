@@ -1,9 +1,7 @@
-﻿using System.IO;
-
-namespace FileWatcherService
+﻿namespace FileWatcherService
 {
     public interface IFileWatcher
     {
-        void Start(FileSystemWatcher watcher);
+        void Start();
     }
 }
