@@ -13,8 +13,8 @@ namespace FileWatcherServiceTests
     public class SimpleFileWatcherTests
     {
         private IConfiguration _config;
-        private const string TestSourceDir = @"TestData\Src\";
-        private const string TestDestinationDir = @"TestData\Dest\";
+        private const string TestSourceDir = @"TestData\Src";
+        private const string TestDestinationDir = @"TestData\Dest";
 
         [SetUp]
         public void Setup()
@@ -64,8 +64,8 @@ namespace FileWatcherServiceTests
             watcherWrapper.Created += Raise.Event<FileSystemEventHandler>(this, fileSysEvtArg);
             watcherWrapper.Error += Raise.Event<ErrorEventHandler>(this, errorEvtArgs);
             
-            fileBag.Received(1).Add(TestSourceDir + file);
-            logger.Received(1).LogError(errorEvtArgs?.GetException(), "Error ");            
+            fileBag.Received(1).Add(TestSourceDir + "\\" + file);
+            logger.Received(1).LogError(errorEvtArgs.GetException(), "Error ");            
         }
     }
 }
