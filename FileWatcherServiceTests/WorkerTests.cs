@@ -58,7 +58,7 @@ namespace FileWatcherServiceTests
         [Test]
         public void Logs_Error_On_Exception()
         {
-            var source = $@"{TestSourceDir}\\Dummy_Source.json";
+            var source = $@"{TestSourceDir}\Dummy_Source.json";
             var exception = new Exception();
             var logger = Substitute.For<ILogger<Worker>>();
             logger.When(x => x.LogInformation($"Successfully transferred file '{source}'"))
@@ -84,7 +84,7 @@ namespace FileWatcherServiceTests
 
             Directory.CreateDirectory(TestSourceDir);
             Directory.CreateDirectory(TestDestinationDir);
-            const string testFile = @"TestData\\Dummy_Source.json";
+            const string testFile = @"TestData\Dummy_Source.json";
             File.Copy(testFile, SourceFile);
         }
     }

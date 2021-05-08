@@ -13,8 +13,8 @@ namespace FileWatcherServiceTests
     public class SimpleFileWatcherTests
     {
         private IConfiguration _config;
-        private const string TestSourceDir = @"TestData\\Src";
-        private const string TestDestinationDir = @"TestData\\Dest";
+        private const string TestSourceDir = @"TestData\Src";
+        private const string TestDestinationDir = @"TestData\Dest";
 
         [SetUp]
         public void Setup()
@@ -51,7 +51,7 @@ namespace FileWatcherServiceTests
         [Test]
         public void Events_Are_Wired_Correctly()
         {
-            const string file = "testSourceFile.txt";
+            const string file = "testSourceFile";
             var fileBag = Substitute.For<IFileBag>();
             var logger = Substitute.For<ILogger<SimpleFileWatcher>>();
             var fileSysEvtArg = new FileSystemEventArgs(WatcherChangeTypes.All, TestSourceDir, file);
@@ -65,7 +65,7 @@ namespace FileWatcherServiceTests
             watcherWrapper.Error += Raise.Event<ErrorEventHandler>(this, errorEvtArgs);
             
             fileBag.Received(1).Add(TestSourceDir+ "\\" +file);
-            logger.Received(1).LogError(errorEvtArgs.GetException(), "Error ");            
+            logger.Received(1).LogError(errorEvtArgs?.GetException(), "Error ");            
         }
     }
 }
