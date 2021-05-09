@@ -9,7 +9,9 @@ A simple File Watcher built on [.NET 5 ](https://dotnet.microsoft.com/download/d
  
  Monitors source folder & Moves files every 15 seconds using timer.
  
- Unit test are on [NUnit 3](https://nunit.org/)
- & Mocking is done using [NSubstitute](https://nsubstitute.github.io/)
+ Logging(console) uses [Serilog](https://serilog.net/).
+ 
+ Unit tests are on [NUnit 3](https://nunit.org/)
+ & Mocking is done using [NSubstitute](https://nsubstitute.github.io/).
  
  
